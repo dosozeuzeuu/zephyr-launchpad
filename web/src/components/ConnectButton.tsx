@@ -34,13 +34,13 @@ export function ConnectButton() {
           {isPending ? 'Connecting…' : 'Connect'}
         </button>
         {open && (
-          <div className="absolute right-0 mt-2 w-56 panel bg-dusk p-2 z-40">
+          <div className="absolute right-0 mt-2 w-56 panel bg-card p-2 z-40">
             {list.map((c) => (
-              <button key={c.uid} className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-haze" onClick={() => { connect({ connector: c }); setOpen(false); }}>
+              <button key={c.uid} className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-line" onClick={() => { connect({ connector: c }); setOpen(false); }}>
                 {c.name === 'Injected' ? 'Browser wallet' : c.name}
               </button>
             ))}
-            {list.length === 0 && <p className="px-3 py-2 text-sm text-mist">Open this site in your wallet&apos;s browser, or install a wallet extension.</p>}
+            {list.length === 0 && <p className="px-3 py-2 text-sm text-muted">Open this site in your wallet&apos;s browser, or install a wallet extension.</p>}
           </div>
         )}
       </div>
@@ -58,14 +58,14 @@ export function ConnectButton() {
   return (
     <div className="relative" ref={ref}>
       <button className="btn-ghost h-10 px-3 gap-3" onClick={() => setOpen((o) => !o)}>
-        <span className="num text-mist hidden sm:inline">{bal ? fmtNum(Number(bal.value) / 1e18, 2) : '…'} HYPE</span>
+        <span className="num text-muted hidden sm:inline">{bal ? fmtNum(Number(bal.value) / 1e18, 2) : '…'} HYPE</span>
         <span>{shortAddr(address)}</span>
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-56 panel bg-dusk p-2 z-40">
-          <a href="/fees" className="block px-3 py-2.5 rounded-lg hover:bg-haze">Your fees</a>
-          <button className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-haze" onClick={() => navigator.clipboard.writeText(address!)}>Copy address</button>
-          <button className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-haze text-sell" onClick={() => { disconnect(); setOpen(false); }}>Disconnect</button>
+        <div className="absolute right-0 mt-2 w-56 panel bg-card p-2 z-40">
+          <a href="/fees" className="block px-3 py-2.5 rounded-lg hover:bg-line">Your fees</a>
+          <button className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-line" onClick={() => navigator.clipboard.writeText(address!)}>Copy address</button>
+          <button className="w-full text-left px-3 py-2.5 rounded-lg hover:bg-line text-sell" onClick={() => { disconnect(); setOpen(false); }}>Disconnect</button>
         </div>
       )}
     </div>

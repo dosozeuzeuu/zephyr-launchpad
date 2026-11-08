@@ -1,28 +1,35 @@
-/* fonts are self-hosted via @fontsource (imported in layout) */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; }
-html { background: #131838; }
+:root { color-scheme: light; }
+html { background: #F7F7F3; }
 body {
-  @apply bg-night text-cloud font-sans antialiased;
+  @apply bg-paper text-ink font-sans antialiased;
   font-feature-settings: 'tnum' 1;
   min-height: 100dvh;
 }
-::selection { background: #b7a8ff55; }
-:focus-visible { outline: 2px solid #b7a8ff; outline-offset: 2px; border-radius: 8px; }
+::selection { background: #123f2f22; }
+:focus-visible { outline: 2px solid #123f2f; outline-offset: 2px; border-radius: 8px; }
+
+/* Marcellus has a single, carved weight: never fake-bold it */
+.font-display { font-weight: 400 !important; letter-spacing: 0.005em !important; }
 
 @layer components {
-  .panel { @apply bg-dusk/80 border border-haze rounded-card; }
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed; }
-  .btn-primary { @apply btn bg-lilac text-night hover:bg-[#c9beff]; }
-  .btn-ghost { @apply btn border border-haze text-cloud hover:bg-haze/60; }
-  .field { @apply w-full bg-night border border-haze rounded-xl px-4 h-12 text-cloud placeholder:text-mist/60 outline-none focus:border-lilac transition-colors; }
-  .label { @apply block text-sm text-mist mb-1.5; }
+  .panel { @apply bg-card border border-line rounded-card; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-[10px] px-5 h-11 font-medium transition-colors disabled:opacity-40 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-laurel text-paper hover:bg-[#1A5640]; }
+  .btn-ghost { @apply btn border border-laurel/25 text-laurel bg-card hover:bg-laurel/5; }
+  .field { @apply w-full bg-paper border border-line rounded-[10px] px-4 h-12 text-ink placeholder:text-muted/60 outline-none focus:border-laurel focus:bg-card transition-colors; }
+  .label { @apply block text-sm text-muted mb-1.5; }
   .num { font-variant-numeric: tabular-nums; }
 }
 
+@keyframes frieze { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.frieze-track { animation: frieze 60s linear infinite; }
+.frieze-track:hover { animation-play-state: paused; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .frieze-track { animation: none; }
 }

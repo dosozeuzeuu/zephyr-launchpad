@@ -30,7 +30,7 @@ export default function Docs() {
   return (
     <div className="pt-8 grid lg:grid-cols-[200px_1fr] gap-10">
       <nav className="hidden lg:block sticky top-24 self-start text-sm">
-        <ul className="flex flex-col gap-2 text-mist">
+        <ul className="flex flex-col gap-2 text-muted">
           {[
             ['launch', 'Launching a token'],
             ['fees', 'Fees'],
@@ -40,12 +40,12 @@ export default function Docs() {
             ['contracts', 'Contracts'],
           ].map(([id, l]) => (
             <li key={id}>
-              <a href={`#${id}`} className="hover:text-cloud">{l}</a>
+              <a href={`#${id}`} className="hover:text-ink">{l}</a>
             </li>
           ))}
         </ul>
       </nav>
-      <article className="max-w-[68ch] leading-relaxed [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-3 [&_h2]:scroll-mt-24 [&_p]:text-mist [&_p]:mb-3 [&_li]:text-mist [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1.5">
+      <article className="max-w-[68ch] leading-relaxed [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:mt-12 [&_h2]:mb-3 [&_h2]:scroll-mt-24 [&_p]:text-muted [&_p]:mb-3 [&_li]:text-muted [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-1.5">
         <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight">How Zephyr works</h1>
         <p className="mt-4 text-lg">
           Zephyr launches tokens straight into Uniswap v4 pools on Elysium. A hook on each pool takes the fee and sends it where the launcher chose.
@@ -90,9 +90,9 @@ export default function Docs() {
         {site.deployed ? (
           <ul className="!list-none !pl-0">
             {Object.entries(site.addresses).map(([k, v]) => (
-              <li key={k} className="flex flex-col sm:flex-row sm:justify-between gap-0.5 py-1.5 border-b border-haze/60">
-                <span className="text-cloud">{NAMES[k] ?? k}</span>
-                <a href={`${explorer}/address/${v}`} target="_blank" rel="noreferrer" className="num text-sm text-lilac break-all hover:underline">
+              <li key={k} className="flex flex-col sm:flex-row sm:justify-between gap-0.5 py-1.5 border-b border-line/60">
+                <span className="text-ink">{NAMES[k] ?? k}</span>
+                <a href={`${explorer}/address/${v}`} target="_blank" rel="noreferrer" className="num text-sm text-laurel break-all hover:underline">
                   {v}
                 </a>
               </li>

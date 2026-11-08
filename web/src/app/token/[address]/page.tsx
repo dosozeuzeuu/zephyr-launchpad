@@ -40,9 +40,9 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
     const name = onchain?.[0]?.result as string | undefined;
     return (
       <div className="pt-16 text-center">
-        <div className="mx-auto h-10 w-10 rounded-full border-2 border-lilac border-t-transparent animate-spin" />
+        <div className="mx-auto h-10 w-10 rounded-full border-2 border-laurel border-t-transparent animate-spin" />
         <h1 className="mt-5 font-display text-2xl font-bold">{name ? `Loading ${name}` : isError ? 'Looking for this token' : 'Loading token'}</h1>
-        <p className="mt-2 text-mist">New launches appear within a few seconds.</p>
+        <p className="mt-2 text-muted">New launches appear within a few seconds.</p>
       </div>
     );
   }
@@ -71,24 +71,24 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
           <TokenAvatar src={t.image} symbol={t.symbol} size={64} />
           <div className="min-w-0">
             <h1 className="font-display text-3xl sm:text-4xl font-extrabold tracking-tight truncate">{t.name}</h1>
-            <p className="text-mist flex flex-wrap gap-x-3 gap-y-1 items-center mt-1">
-              <span className="text-cloud font-medium">{t.symbol}</span>
-              <button className="hover:text-cloud num" onClick={() => navigator.clipboard.writeText(t.address)} title="Copy address">
+            <p className="text-muted flex flex-wrap gap-x-3 gap-y-1 items-center mt-1">
+              <span className="text-ink font-medium">{t.symbol}</span>
+              <button className="hover:text-ink num" onClick={() => navigator.clipboard.writeText(t.address)} title="Copy address">
                 {shortAddr(t.address)}
               </button>
               <span>by {shortAddr(t.creator)}</span>
               <span>{timeAgo(t.created_at)} ago</span>
-              {t.website && <a className="text-lilac hover:underline" href={t.website} target="_blank" rel="noreferrer">Website</a>}
-              {t.twitter && <a className="text-lilac hover:underline" href={t.twitter} target="_blank" rel="noreferrer">X</a>}
-              {t.telegram && <a className="text-lilac hover:underline" href={t.telegram} target="_blank" rel="noreferrer">Telegram</a>}
+              {t.website && <a className="text-laurel hover:underline" href={t.website} target="_blank" rel="noreferrer">Website</a>}
+              {t.twitter && <a className="text-laurel hover:underline" href={t.twitter} target="_blank" rel="noreferrer">X</a>}
+              {t.telegram && <a className="text-laurel hover:underline" href={t.telegram} target="_blank" rel="noreferrer">Telegram</a>}
             </p>
           </div>
         </header>
 
-        <dl className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-px rounded-card overflow-hidden border border-haze bg-haze">
+        <dl className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-px rounded-card overflow-hidden border border-line bg-line">
           {stats.map((s) => (
-            <div key={s.k} className="bg-dusk px-4 py-3">
-              <dt className="text-sm text-mist">{s.k}</dt>
+            <div key={s.k} className="bg-card px-4 py-3">
+              <dt className="text-sm text-muted">{s.k}</dt>
               <dd className="num font-medium mt-0.5 whitespace-nowrap">
                 <motion.span key={s.v} initial={{ opacity: 0.4 }} animate={{ opacity: 1 }}>
                   {s.v}
@@ -103,7 +103,7 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
             <h2 className="font-display font-bold px-1">Market cap</h2>
             <div className="flex gap-1">
               {INTERVALS.map((i) => (
-                <button key={i} onClick={() => setInterval(i)} className={`px-2.5 py-1 rounded-md text-sm num ${interval === i ? 'bg-haze text-cloud' : 'text-mist hover:text-cloud'}`}>
+                <button key={i} onClick={() => setInterval(i)} className={`px-2.5 py-1 rounded-md text-sm num ${interval === i ? 'bg-line text-ink' : 'text-muted hover:text-ink'}`}>
                   {i}
                 </button>
               ))}
@@ -119,7 +119,7 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
         <section className="panel p-3 sm:p-4">
           <div className="flex gap-1 mb-2">
             {(['trades', 'holders'] as const).map((x) => (
-              <button key={x} onClick={() => setTab(x)} className={`px-3.5 py-1.5 rounded-full text-sm capitalize ${tab === x ? 'bg-haze text-cloud' : 'text-mist hover:text-cloud'}`}>
+              <button key={x} onClick={() => setTab(x)} className={`px-3.5 py-1.5 rounded-full text-sm capitalize ${tab === x ? 'bg-line text-ink' : 'text-muted hover:text-ink'}`}>
                 {x}
               </button>
             ))}
@@ -133,18 +133,18 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
                 const label = h.holder === site.addresses.poolManager?.toLowerCase() ? 'Uniswap pool' : h.holder === t.creator ? `${shortAddr(h.holder)} (creator)` : shortAddr(h.holder);
                 return (
                   <li key={h.holder} className="grid grid-cols-[2rem_1fr_auto] items-center gap-3 px-2 py-2">
-                    <span className="text-mist num text-sm">{i + 1}</span>
+                    <span className="text-muted num text-sm">{i + 1}</span>
                     <span className="min-w-0">
                       <span className="block truncate">{label}</span>
-                      <span className="block h-1.5 mt-1 rounded-full bg-haze overflow-hidden">
-                        <span className="block h-full bg-lilac/70 rounded-full" style={{ width: `${Math.max(1, share * 100)}%` }} />
+                      <span className="block h-1.5 mt-1 rounded-full bg-line overflow-hidden">
+                        <span className="block h-full bg-laurel/70 rounded-full" style={{ width: `${Math.max(1, share * 100)}%` }} />
                       </span>
                     </span>
                     <span className="num text-sm">{(share * 100).toFixed(2)}%</span>
                   </li>
                 );
               })}
-              {!data.holders.length && <p className="text-mist text-sm px-2 py-6">No holders yet.</p>}
+              {!data.holders.length && <p className="text-muted text-sm px-2 py-6">No holders yet.</p>}
             </ul>
           )}
         </section>
@@ -158,19 +158,19 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
         <section className="panel p-4 sm:p-5">
           <h2 className="font-display font-bold">Where the {pct(t.swap_fee)} fee goes</h2>
           <div className="mt-3 flex h-3 rounded-full overflow-hidden" role="img" aria-label="Fee split">
-            <span style={{ width: `${creatorPct}%` }} className="bg-lilac" />
+            <span style={{ width: `${creatorPct}%` }} className="bg-laurel" />
             <span style={{ width: `${buybackPct}%` }} className="bg-sell" />
             <span style={{ width: `${holdersPct}%` }} className="bg-buy" />
-            <span style={{ width: '30%' }} className="bg-haze" />
+            <span style={{ width: '30%' }} className="bg-line" />
           </div>
           <ul className="mt-3 text-sm flex flex-col gap-1.5">
-            <Row c="bg-lilac" k="Creator" v={creatorPct} />
+            <Row c="bg-laurel" k="Creator" v={creatorPct} />
             <Row c="bg-sell" k="Buyback and burn" v={buybackPct} />
             <Row c="bg-buy" k="Holders" v={holdersPct} />
-            <Row c="bg-haze" k="Protocol" v={30} />
+            <Row c="bg-line" k="Protocol" v={30} />
           </ul>
           {t.snipe_fee > 0 && (
-            <p className="mt-3 text-sm text-mist">
+            <p className="mt-3 text-sm text-muted">
               Anti-snipe: buys started at {pct(t.snipe_fee)}, falling to {pct(t.swap_fee)} over {Math.round(t.snipe_duration / 60)} min.
             </p>
           )}
@@ -179,7 +179,7 @@ export default function TokenPage({ params }: { params: Promise<{ address: strin
         {t.description && (
           <section className="panel p-4 sm:p-5">
             <h2 className="font-display font-bold">About</h2>
-            <p className="mt-2 text-mist leading-relaxed whitespace-pre-wrap break-words">{t.description}</p>
+            <p className="mt-2 text-muted leading-relaxed whitespace-pre-wrap break-words">{t.description}</p>
           </section>
         )}
       </aside>
@@ -191,7 +191,7 @@ function Row({ c, k, v }: { c: string; k: string; v: number }) {
   return (
     <li className="flex items-center gap-2">
       <span className={`h-2.5 w-2.5 rounded-sm ${c}`} />
-      <span className="text-mist">{k}</span>
+      <span className="text-muted">{k}</span>
       <span className="ml-auto num">{v.toFixed(v % 1 ? 1 : 0)}%</span>
     </li>
   );

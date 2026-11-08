@@ -4,7 +4,7 @@ import { Footer } from '@/components/Footer';
 import { Nav } from '@/components/Nav';
 import { loadConfig } from '@/lib/server/config';
 
-import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource/marcellus';
 import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-sans/600.css';
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   icons: { icon: '/favicon.svg' },
 };
 
-export const viewport: Viewport = { themeColor: '#131838', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#F7F7F3', width: 'device-width', initialScale: 1 };
 
 export const dynamic = 'force-dynamic';
 

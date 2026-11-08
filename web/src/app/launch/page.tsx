@@ -165,15 +165,15 @@ export default function Launch() {
       <div className="flex flex-col gap-8 min-w-0">
         <div>
           <h1 className="font-display text-4xl sm:text-5xl font-extrabold tracking-tight">Launch a token</h1>
-          <p className="mt-3 text-mist max-w-[56ch] leading-relaxed">
+          <p className="mt-3 text-muted max-w-[56ch] leading-relaxed">
             One transaction creates the token, its Uniswap pool and its fee routing. All 1,000,000,000 tokens go into the pool, which opens at a {fmtNum(capHype, 0)} HYPE market cap. There is no launch fee beyond gas.
           </p>
         </div>
 
         <Section title="The token">
           <div className="grid sm:grid-cols-[120px_1fr] gap-5">
-            <label className="group relative h-[120px] w-[120px] rounded-2xl border border-dashed border-haze grid place-items-center cursor-pointer overflow-hidden hover:border-lilac transition-colors">
-              {preview ? <img src={preview} alt="" className="absolute inset-0 h-full w-full object-cover" /> : <span className="text-sm text-mist text-center px-3">Add an image</span>}
+            <label className="group relative h-[120px] w-[120px] rounded-2xl border border-dashed border-line grid place-items-center cursor-pointer overflow-hidden hover:border-laurel transition-colors">
+              {preview ? <img src={preview} alt="" className="absolute inset-0 h-full w-full object-cover" /> : <span className="text-sm text-muted text-center px-3">Add an image</span>}
               <input type="file" accept="image/png,image/jpeg,image/webp,image/gif" className="sr-only" onChange={(e) => pickImage(e.target.files?.[0] ?? null)} />
             </label>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -203,7 +203,7 @@ export default function Launch() {
 
         <Section title="Trading fee" hint="Paid on every trade, fixed for the life of the pool.">
           <div className="flex items-center gap-4">
-            <input type="range" min={1} max={5} step={0.5} value={fee} onChange={(e) => setFee(Number(e.target.value))} className="flex-1 accent-[#B7A8FF]" aria-label="Trading fee" />
+            <input type="range" min={1} max={5} step={0.5} value={fee} onChange={(e) => setFee(Number(e.target.value))} className="flex-1 accent-[#123F2F]" aria-label="Trading fee" />
             <span className="num font-display text-2xl font-bold w-16 text-right">{fee}%</span>
           </div>
         </Section>
@@ -213,7 +213,7 @@ export default function Launch() {
             {SPLITS.map((s) => {
               const on = s.v.every((x, i) => x === split[i]);
               return (
-                <button key={s.name} onClick={() => setSplit([...s.v] as [number, number, number])} className={`px-4 h-9 rounded-full border text-sm transition-colors ${on ? 'bg-lilac text-night border-lilac' : 'border-haze text-mist hover:text-cloud'}`}>
+                <button key={s.name} onClick={() => setSplit([...s.v] as [number, number, number])} className={`px-4 h-9 rounded-full border text-sm transition-colors ${on ? 'bg-laurel text-paper border-laurel' : 'border-line text-muted hover:text-ink'}`}>
                   {s.name}
                 </button>
               );
@@ -235,13 +235,13 @@ export default function Launch() {
                       setSplit(next);
                     }}
                   />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-mist">%</span>
+                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted">%</span>
                 </div>
               </label>
             ))}
           </div>
-          <div className="mt-3 flex h-2.5 rounded-full overflow-hidden bg-haze">
-            <motion.span animate={{ width: `${split[0]}%` }} className="bg-lilac" />
+          <div className="mt-3 flex h-2.5 rounded-full overflow-hidden bg-line">
+            <motion.span animate={{ width: `${split[0]}%` }} className="bg-laurel" />
             <motion.span animate={{ width: `${split[1]}%` }} className="bg-sell" />
             <motion.span animate={{ width: `${split[2]}%` }} className="bg-buy" />
           </div>
@@ -255,17 +255,17 @@ export default function Launch() {
                 <div className="grid sm:grid-cols-2 gap-4 pt-4">
                   <label>
                     <span className="label">Starting buy fee: {snipeFee}%</span>
-                    <input type="range" min={Math.ceil(fee) + 1} max={30} value={snipeFee} onChange={(e) => setSnipeFee(Number(e.target.value))} className="w-full accent-[#B7A8FF]" />
+                    <input type="range" min={Math.ceil(fee) + 1} max={30} value={snipeFee} onChange={(e) => setSnipeFee(Number(e.target.value))} className="w-full accent-[#123F2F]" />
                   </label>
                   <label>
                     <span className="label">Falls to {fee}% over: {snipeMin} min</span>
-                    <input type="range" min={1} max={15} value={snipeMin} onChange={(e) => setSnipeMin(Number(e.target.value))} className="w-full accent-[#B7A8FF]" />
+                    <input type="range" min={1} max={15} value={snipeMin} onChange={(e) => setSnipeMin(Number(e.target.value))} className="w-full accent-[#123F2F]" />
                   </label>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
-          <div className="h-px bg-haze my-5" />
+          <div className="h-px bg-line my-5" />
           <Toggle on={schedule} set={setSchedule} label="Schedule the opening" hint="The pool is created now, and trading opens at the time you pick, up to 30 days away." />
           <AnimatePresence initial={false}>
             {schedule && (
@@ -279,9 +279,9 @@ export default function Launch() {
         <Section title="Dev buy" hint="Buy the first tokens yourself in the launch transaction, at the opening price.">
           <div className="relative sm:max-w-xs">
             <input inputMode="decimal" className="field num pr-16" value={devBuy} onChange={(e) => setDevBuy(e.target.value.replace(/[^0-9.]/g, ''))} />
-            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-mist">HYPE</span>
+            <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted">HYPE</span>
           </div>
-          <p className="mt-2 text-sm text-mist num">
+          <p className="mt-2 text-sm text-muted num">
             About {fmtNum(devTokens, 2)} {symbol.toUpperCase() || 'tokens'} ({((devTokens / SUPPLY) * 100).toFixed(2)}% of supply)
           </p>
         </Section>
@@ -289,22 +289,22 @@ export default function Launch() {
 
       <aside className="lg:sticky lg:top-24 flex flex-col gap-4">
         <div className="panel p-5">
-          <p className="text-sm text-mist">Preview</p>
+          <p className="text-sm text-muted">Preview</p>
           <div className="mt-3 flex items-center gap-3">
             {preview ? <img src={preview} alt="" className="h-14 w-14 rounded-xl object-cover" /> : <TokenAvatar symbol={symbol || '??'} size={56} />}
             <div className="min-w-0">
               <p className="font-display text-xl font-bold truncate">{name || 'Your token'}</p>
-              <p className="text-mist">{symbol.toUpperCase() || 'TICKER'}</p>
+              <p className="text-muted">{symbol.toUpperCase() || 'TICKER'}</p>
             </div>
           </div>
           <dl className="mt-4 text-sm grid grid-cols-2 gap-y-1.5">
-            <dt className="text-mist">Opening cap</dt>
+            <dt className="text-muted">Opening cap</dt>
             <dd className="text-right num">{fmtNum(capHype, 0)} HYPE</dd>
-            <dt className="text-mist">Swap fee</dt>
+            <dt className="text-muted">Swap fee</dt>
             <dd className="text-right num">{fee}%</dd>
-            <dt className="text-mist">You earn</dt>
+            <dt className="text-muted">You earn</dt>
             <dd className="text-right num">{((fee * 0.7 * split[0]) / 100).toFixed(2)}% of volume</dd>
-            <dt className="text-mist">Dev buy</dt>
+            <dt className="text-muted">Dev buy</dt>
             <dd className="text-right num">{dev || 0} HYPE</dd>
           </dl>
           {errors.length > 0 && (name || symbol) && (
@@ -331,7 +331,7 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
   return (
     <section className="panel p-5 sm:p-6">
       <h2 className="font-display text-xl font-bold">{title}</h2>
-      {hint && <p className="mt-1 text-sm text-mist max-w-[60ch]">{hint}</p>}
+      {hint && <p className="mt-1 text-sm text-muted max-w-[60ch]">{hint}</p>}
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -340,12 +340,12 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
 function Toggle({ on, set, label, hint }: { on: boolean; set: (v: boolean) => void; label: string; hint: string }) {
   return (
     <button type="button" role="switch" aria-checked={on} onClick={() => set(!on)} className="w-full flex items-start gap-4 text-left">
-      <span className={`mt-0.5 relative h-6 w-11 shrink-0 rounded-full transition-colors ${on ? 'bg-lilac' : 'bg-haze'}`}>
-        <motion.span layout transition={{ type: 'spring', stiffness: 500, damping: 32 }} className={`absolute top-0.5 h-5 w-5 rounded-full bg-cloud ${on ? 'right-0.5' : 'left-0.5'}`} />
+      <span className={`mt-0.5 relative h-6 w-11 shrink-0 rounded-full transition-colors ${on ? 'bg-laurel' : 'bg-line'}`}>
+        <motion.span layout transition={{ type: 'spring', stiffness: 500, damping: 32 }} className={`absolute top-0.5 h-5 w-5 rounded-full bg-ink ${on ? 'right-0.5' : 'left-0.5'}`} />
       </span>
       <span>
         <span className="block font-medium">{label}</span>
-        <span className="block text-sm text-mist">{hint}</span>
+        <span className="block text-sm text-muted">{hint}</span>
       </span>
     </button>
   );

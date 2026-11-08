@@ -115,11 +115,11 @@ export default function Admin() {
     <div className="pt-8 max-w-3xl flex flex-col gap-6">
       <div>
         <h1 className="font-display text-4xl font-extrabold tracking-tight">Admin</h1>
-        <p className="mt-2 text-mist">Every step is signed by your wallet. Your keys never leave it.</p>
+        <p className="mt-2 text-muted">Every step is signed by your wallet. Your keys never leave it.</p>
       </div>
 
       <Step n={1} title="Network settings" state={site.rpcUrl === net.rpcUrl && site.explorerUrl === net.explorerUrl ? 'saved' : 'edit'}>
-        <p className="text-sm text-mist mb-3">Use the official Elysium RPC, explorer and bridge links. Save before deploying, so your wallet connects through this RPC.</p>
+        <p className="text-sm text-muted mb-3">Use the official Elysium RPC, explorer and bridge links. Save before deploying, so your wallet connects through this RPC.</p>
         {(['rpcUrl', 'explorerUrl', 'bridgeUrl'] as const).map((k) => (
           <label key={k} className="block mb-3">
             <span className="label">{k === 'rpcUrl' ? 'RPC URL' : k === 'explorerUrl' ? 'Explorer URL' : 'Bridge URL'}</span>
@@ -133,7 +133,7 @@ export default function Admin() {
 
       {site.deployed ? (
         <Step n={2} title="Live" state="saved">
-          <p className="text-mist">Zephyr is deployed. Contracts are listed on the docs page.</p>
+          <p className="text-muted">Zephyr is deployed. Contracts are listed on the docs page.</p>
           <KeeperForm vault={site.addresses.vault as Address} />
         </Step>
       ) : (
@@ -151,9 +151,9 @@ export default function Admin() {
               <label>
                 <span className="label">Keeper wallet (runs buybacks and holder rounds)</span>
                 <input className="field num" value={keeper} onChange={(e) => setKeeper(e.target.value.trim())} />
-                <span className="text-sm text-mist">Use a separate hot wallet whose key you put in Vercel as KEEPER_PRIVATE_KEY. You can add more keepers later.</span>
+                <span className="text-sm text-muted">Use a separate hot wallet whose key you put in Vercel as KEEPER_PRIVATE_KEY. You can add more keepers later.</span>
               </label>
-              <p className="text-sm text-mist">Protocol fees go to {shortAddr(PROTOCOL_WALLET)}. You will own every contract.</p>
+              <p className="text-sm text-muted">Protocol fees go to {shortAddr(PROTOCOL_WALLET)}. You will own every contract.</p>
 
               <ol className="flex flex-col gap-2 mt-2">
                 <Action label="1. Deploy the setup contract" done={!!progress.deployer} disabled={busy || !checks.pm || !checks.whype || !!progress.deployer} onClick={deployFactory} />
@@ -163,7 +163,7 @@ export default function Admin() {
                 <Action label="5. Verify and open Zephyr" done={false} disabled={busy || progress.done !== 3} onClick={finish} />
               </ol>
               {progress.deployer && (
-                <button className="text-sm text-mist underline self-start" onClick={() => confirm('Start the deployment over? Only do this if a step failed permanently.') && save({ done: 0 })}>
+                <button className="text-sm text-muted underline self-start" onClick={() => confirm('Start the deployment over? Only do this if a step failed permanently.') && save({ done: 0 })}>
                   Start over
                 </button>
               )}
@@ -190,14 +190,14 @@ function KeeperForm({ vault }: { vault: Address }) {
 }
 
 function Gate({ children }: { children: React.ReactNode }) {
-  return <p className="pt-16 text-center text-mist max-w-md mx-auto">{children}</p>;
+  return <p className="pt-16 text-center text-muted max-w-md mx-auto">{children}</p>;
 }
 
 function Step({ n, title, state, children }: { n: number; title: string; state: 'edit' | 'saved'; children: React.ReactNode }) {
   return (
     <section className="panel p-5 sm:p-6">
       <h2 className="font-display text-xl font-bold flex items-center gap-3">
-        <span className={`h-7 w-7 rounded-full grid place-items-center text-sm ${state === 'saved' ? 'bg-buy text-night' : 'bg-haze'}`}>{state === 'saved' ? '✓' : n}</span>
+        <span className={`h-7 w-7 rounded-full grid place-items-center text-sm ${state === 'saved' ? 'bg-buy text-paper' : 'bg-line'}`}>{state === 'saved' ? '✓' : n}</span>
         {title}
       </h2>
       <div className="mt-4">{children}</div>
@@ -207,8 +207,8 @@ function Step({ n, title, state, children }: { n: number; title: string; state: 
 
 function Action({ label, done, disabled, onClick }: { label: string; done: boolean; disabled: boolean; onClick: () => void }) {
   return (
-    <li className="flex items-center justify-between gap-3 rounded-xl border border-haze px-4 py-3">
-      <span className={done ? 'text-mist line-through' : ''}>{label}</span>
+    <li className="flex items-center justify-between gap-3 rounded-xl border border-line px-4 py-3">
+      <span className={done ? 'text-muted line-through' : ''}>{label}</span>
       {done ? <span className="text-buy text-sm">Done</span> : <button className="btn-primary h-9 px-4 text-sm" disabled={disabled} onClick={onClick}>Sign</button>}
     </li>
   );

@@ -41,8 +41,8 @@ export function Markets({ tokens, loading }: { tokens: TokenStats[]; loading: bo
         <h2 id="markets" className="font-display text-2xl font-bold">Markets</h2>
         <div className="flex gap-1 overflow-x-auto -mx-1 px-1 sm:ml-4" role="tablist">
           {TABS.map((t) => (
-            <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)} className={`relative px-3.5 py-1.5 rounded-full text-sm whitespace-nowrap ${tab === t.id ? 'text-night' : 'text-mist hover:text-cloud'}`}>
-              {tab === t.id && <motion.span layoutId="market-tab" className="absolute inset-0 rounded-full bg-lilac" transition={{ type: 'spring', stiffness: 420, damping: 36 }} />}
+            <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)} className={`relative px-3.5 py-1.5 rounded-full text-sm whitespace-nowrap ${tab === t.id ? 'text-paper' : 'text-muted hover:text-ink'}`}>
+              {tab === t.id && <motion.span layoutId="market-tab" className="absolute inset-0 rounded-full bg-laurel" transition={{ type: 'spring', stiffness: 420, damping: 36 }} />}
               <span className="relative">{t.label}</span>
             </button>
           ))}
@@ -51,7 +51,7 @@ export function Markets({ tokens, loading }: { tokens: TokenStats[]; loading: bo
       </div>
 
       <div className="panel overflow-hidden">
-        <div className="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_0.8fr_0.7fr] gap-3 px-4 py-3 text-sm text-mist border-b border-haze">
+        <div className="hidden sm:grid grid-cols-[2fr_1fr_1fr_1fr_0.8fr_0.7fr] gap-3 px-4 py-3 text-sm text-muted border-b border-line">
           <span>Token</span>
           <span className="text-right">Market cap</span>
           <span className="text-right">24h volume</span>
@@ -62,12 +62,12 @@ export function Markets({ tokens, loading }: { tokens: TokenStats[]; loading: bo
         {loading && !tokens.length ? (
           <div className="p-4 flex flex-col gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-12 rounded-xl bg-haze/50 animate-pulse" />
+              <div key={i} className="h-12 rounded-xl bg-line/50 animate-pulse" />
             ))}
           </div>
         ) : rows.length === 0 ? (
           <div className="px-4 py-12 text-center">
-            <p className="text-mist">{q ? 'No token matches that search.' : tab === 'soon' ? 'No launches are scheduled.' : 'No tokens yet.'}</p>
+            <p className="text-muted">{q ? 'No token matches that search.' : tab === 'soon' ? 'No launches are scheduled.' : 'No tokens yet.'}</p>
             {!q && (
               <Link href="/launch" className="btn-primary mt-4">
                 Launch the first one
@@ -77,13 +77,13 @@ export function Markets({ tokens, loading }: { tokens: TokenStats[]; loading: bo
         ) : (
           <ul>
             {rows.map((t) => (
-              <motion.li key={t.address} layout transition={{ type: 'spring', stiffness: 500, damping: 42 }} className="border-b border-haze/60 last:border-0">
-                <Link href={`/token/${t.address}`} className="grid grid-cols-[1fr_auto] sm:grid-cols-[2fr_1fr_1fr_1fr_0.8fr_0.7fr] gap-3 items-center px-4 py-3 hover:bg-haze/40 transition-colors">
+              <motion.li key={t.address} layout transition={{ type: 'spring', stiffness: 500, damping: 42 }} className="border-b border-line/60 last:border-0">
+                <Link href={`/token/${t.address}`} className="grid grid-cols-[1fr_auto] sm:grid-cols-[2fr_1fr_1fr_1fr_0.8fr_0.7fr] gap-3 items-center px-4 py-3 hover:bg-line/40 transition-colors">
                   <span className="flex items-center gap-3 min-w-0">
                     <TokenAvatar src={t.image} symbol={t.symbol} size={40} />
                     <span className="min-w-0">
                       <span className="block font-medium truncate">{t.name}</span>
-                      <span className="block text-sm text-mist">
+                      <span className="block text-sm text-muted">
                         {t.symbol} · {tab === 'soon' ? `opens in ${timeAgo(2 * now - t.starts_at)}` : `${timeAgo(t.created_at)} old`}
                       </span>
                     </span>
@@ -98,7 +98,7 @@ export function Markets({ tokens, loading }: { tokens: TokenStats[]; loading: bo
                     {(t.change_24h * 100).toFixed(1)}%
                   </span>
                   <span className="hidden sm:block text-right num">{fmtNum(t.holders, 0)}</span>
-                  <span className="hidden sm:block text-right num text-mist" title={`Price ${fmtPrice(t.price)} HYPE`}>{pct(t.swap_fee)}</span>
+                  <span className="hidden sm:block text-right num text-muted" title={`Price ${fmtPrice(t.price)} HYPE`}>{pct(t.swap_fee)}</span>
                 </Link>
               </motion.li>
             ))}

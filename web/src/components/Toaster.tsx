@@ -43,20 +43,20 @@ export function Toaster() {
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, x: 40 }}
-            className="panel bg-dusk px-4 py-3 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.6)]"
+            className="panel bg-card px-4 py-3 shadow-[0_16px_40px_-16px_rgba(14,42,31,0.35)]"
           >
             <div className="flex items-start gap-3">
-              <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${t.kind === 'ok' ? 'bg-buy' : t.kind === 'err' ? 'bg-sell' : 'bg-lilac animate-pulse'}`} />
+              <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${t.kind === 'ok' ? 'bg-buy' : t.kind === 'err' ? 'bg-sell' : 'bg-laurel animate-pulse'}`} />
               <div className="min-w-0 flex-1">
                 <p className="font-medium">{t.title}</p>
-                {t.body && <p className="text-sm text-mist break-words">{t.body}</p>}
+                {t.body && <p className="text-sm text-muted break-words">{t.body}</p>}
                 {t.href && (
-                  <a href={t.href} target="_blank" rel="noreferrer" className="text-sm text-lilac hover:underline">
+                  <a href={t.href} target="_blank" rel="noreferrer" className="text-sm text-laurel hover:underline">
                     View transaction
                   </a>
                 )}
               </div>
-              <button onClick={() => dismiss(t.id)} className="text-mist hover:text-cloud" aria-label="Dismiss">
+              <button onClick={() => dismiss(t.id)} className="text-muted hover:text-ink" aria-label="Dismiss">
                 ×
               </button>
             </div>

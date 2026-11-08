@@ -142,9 +142,9 @@ export function SwapCard({ token, symbol, poolId, price, startsAt, onTraded }: {
 
   return (
     <div className="panel p-4 sm:p-5">
-      <div className="grid grid-cols-2 p-1 rounded-full bg-night border border-haze relative">
+      <div className="grid grid-cols-2 p-1 rounded-full bg-paper border border-line relative">
         {(['buy', 'sell'] as const).map((s) => (
-          <button key={s} onClick={() => { setSide(s); setAmount(''); }} className={`relative h-10 rounded-full font-medium capitalize ${side === s ? 'text-night' : 'text-mist'}`}>
+          <button key={s} onClick={() => { setSide(s); setAmount(''); }} className={`relative h-10 rounded-full font-medium capitalize ${side === s ? 'text-paper' : 'text-muted'}`}>
             {side === s && <motion.span layoutId="swap-side" className={`absolute inset-0 rounded-full ${s === 'buy' ? 'bg-buy' : 'bg-sell'}`} transition={{ type: 'spring', stiffness: 420, damping: 36 }} />}
             <span className="relative">{s}</span>
           </button>
@@ -152,7 +152,7 @@ export function SwapCard({ token, symbol, poolId, price, startsAt, onTraded }: {
       </div>
 
       <label className="mt-4 block">
-        <span className="flex justify-between text-sm text-mist mb-1.5">
+        <span className="flex justify-between text-sm text-muted mb-1.5">
           <span>{side === 'buy' ? 'You pay' : 'You sell'}</span>
           {balance !== undefined && (
             <span className="num">
@@ -162,20 +162,20 @@ export function SwapCard({ token, symbol, poolId, price, startsAt, onTraded }: {
         </span>
         <div className="relative">
           <input inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value.replace(/[^0-9.]/g, ''))} placeholder="0.0" className="field h-14 text-xl num pr-20" />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-mist">{side === 'buy' ? 'HYPE' : symbol}</span>
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-muted">{side === 'buy' ? 'HYPE' : symbol}</span>
         </div>
       </label>
       <div className="mt-2 flex gap-2">
         {presets.map((p) => (
-          <button key={p} onClick={() => pickPreset(p)} className="flex-1 h-8 rounded-lg border border-haze text-sm text-mist hover:text-cloud hover:border-lilac/60">
+          <button key={p} onClick={() => pickPreset(p)} className="flex-1 h-8 rounded-lg border border-line text-sm text-muted hover:text-ink hover:border-laurel/60">
             {p}
           </button>
         ))}
       </div>
 
-      <div className="mt-4 rounded-xl bg-night/70 border border-haze/70 p-3 text-sm flex flex-col gap-1.5">
+      <div className="mt-4 rounded-xl bg-paper/70 border border-line/70 p-3 text-sm flex flex-col gap-1.5">
         <div className="flex justify-between">
-          <span className="text-mist">You receive{quote && !quote.exact ? ' (estimate)' : ''}</span>
+          <span className="text-muted">You receive{quote && !quote.exact ? ' (estimate)' : ''}</span>
           <AnimatePresence mode="wait">
             <motion.span key={quote ? quote.out.toString() : quoting ? 'q' : 'n'} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} className="num font-medium">
               {quoting && !quote ? 'Quoting…' : quote ? `${fmtNum(Number(quote.out) / 1e18, 4)} ${side === 'buy' ? symbol : 'HYPE'}` : '—'}
@@ -183,14 +183,14 @@ export function SwapCard({ token, symbol, poolId, price, startsAt, onTraded }: {
           </AnimatePresence>
         </div>
         <div className="flex justify-between">
-          <span className="text-mist">Fee right now</span>
+          <span className="text-muted">Fee right now</span>
           <span className="num">{feeBps !== undefined ? pct(Number(feeBps)) : '—'}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-mist">Max slippage</span>
+          <span className="text-muted">Max slippage</span>
           <span className="flex gap-1">
             {[1, 3, 10].map((s) => (
-              <button key={s} onClick={() => setSlippage(s)} className={`px-2 rounded-md num ${slippage === s ? 'bg-haze text-cloud' : 'text-mist'}`}>
+              <button key={s} onClick={() => setSlippage(s)} className={`px-2 rounded-md num ${slippage === s ? 'bg-line text-ink' : 'text-muted'}`}>
                 {s}%
               </button>
             ))}
@@ -199,13 +199,13 @@ export function SwapCard({ token, symbol, poolId, price, startsAt, onTraded }: {
       </div>
 
       <button
-        className={`mt-4 w-full btn h-12 text-[16px] ${side === 'buy' ? 'bg-buy text-night hover:brightness-110' : 'bg-sell text-night hover:brightness-110'}`}
+        className={`mt-4 w-full btn h-12 text-[16px] ${side === 'buy' ? 'bg-buy text-paper hover:brightness-110' : 'bg-sell text-paper hover:brightness-110'}`}
         disabled={!address ? true : disabled}
         onClick={() => (chainId !== ELYSIUM_CHAIN_ID ? switchChain({ chainId: ELYSIUM_CHAIN_ID }) : submit())}
       >
         {busy ? 'Working…' : cta}
       </button>
-      {Number(feeBps ?? 0) > 500 && side === 'buy' && <p className="mt-3 text-sm text-lilac">Anti-snipe is on: the buy fee falls to the normal fee over the first minutes of trading.</p>}
+      {Number(feeBps ?? 0) > 500 && side === 'buy' && <p className="mt-3 text-sm text-laurel">Anti-snipe is on: the buy fee falls to the normal fee over the first minutes of trading.</p>}
     </div>
   );
 }
