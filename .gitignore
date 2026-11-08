@@ -1,0 +1,10 @@
+node_modules
+.next
+*.tsbuildinfo
+.env*
+!.env.example
+contracts/out
+contracts/cache
+contracts/lib
+contracts/broadcast
+web/scripts/test-artifacts.json

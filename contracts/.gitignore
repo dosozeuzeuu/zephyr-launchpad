@@ -1,0 +1,15 @@
+# Compiler files
+cache/
+out/
+
+# node
+node_modules/
+
+# Docs
+docs/
+
+# Dotenv file
+.env
+
+# OS Files
+.DS_Store
